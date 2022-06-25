@@ -8,8 +8,8 @@ public class ChatLyApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ChatLyApplication.class, args);
-		System.out.println("======================="
-				+ "Server ON"
-				+ "\"=======================\"");
+		System.out.println("=======================");
+		System.out.println("\tServer ON");
+		System.out.println("=======================");
 	}
 }
