@@ -1,7 +1,6 @@
 package com.ufc.web.chatly.controller;
 
 import java.util.Optional;
-import java.util.UUID;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -10,14 +9,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.ufc.web.chatly.model.User;
 import com.ufc.web.chatly.common.BaseController;
@@ -26,21 +18,24 @@ import com.ufc.web.chatly.dto.UserDTO;
 import com.ufc.web.chatly.service.UserService;
 
 @RestController
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/user")
 public class UserController implements BaseController<User, UserDTO>{
 	@Autowired 
-	UserService userService;
-	
+	UserService userService;	
 	
 	@GetMapping
-	public Iterable<User> getAll() {
-		return userService.getAll();
+	public ResponseEntity<Iterable<User>> getAll() {
+		return ResponseEntity.status(HttpStatus.OK).body(userService.getAll());
 	}
 
 	@Transactional
 	@PostMapping
 	@Override
 	public ResponseEntity<Object> save(@RequestBody @Valid UserDTO userDTO) {
+		// existByEmail
+		// lenghtPassword
+		
 		var user = new User();
 		BeanUtils.copyProperties(userDTO, user);
 		
@@ -50,14 +45,13 @@ public class UserController implements BaseController<User, UserDTO>{
 	@Transactional
 	@PutMapping("/{id}")
 	@Override
-	public ResponseEntity<Object> update(@RequestBody @Valid UserDTO userDTO, @PathVariable(value = "id") UUID id) {
+	public ResponseEntity<Object> update(@RequestBody @Valid UserDTO userDTO, @PathVariable(value = "id") Long id) {
 		Optional<User> userOptional = userService.getById(id);
 		
 		if (!userOptional.isPresent()) {
 			return new ResponseEntity<Object>(new BaseMessage("No user found with id: " + id), HttpStatus.NOT_FOUND);
 		}
-		
-		var user = userOptional.get();
+		User user = userOptional.get();
 		user.setName(userDTO.getName());
 		user.setEmail(userDTO.getEmail());
 		user.setPassword(userDTO.getPassword());
@@ -71,7 +65,7 @@ public class UserController implements BaseController<User, UserDTO>{
 	@Transactional
 	@DeleteMapping("/{id}")
 	@Override
-	public ResponseEntity<Object> delete(@PathVariable(value = "id") UUID id) {
+	public ResponseEntity<Object> delete(@PathVariable(value = "id") Long id) {
 		Optional<User> userOptional = userService.getById(id);
 		
 		if (!userOptional.isPresent()) {
@@ -84,12 +78,12 @@ public class UserController implements BaseController<User, UserDTO>{
 
 	@GetMapping("/{id}")
 	@Override
-	public Object getById(@PathVariable(value = "id") UUID id) {
+	public ResponseEntity<Object> getById(@PathVariable(value = "id") Long id) {
 		Optional<User> userOptional = userService.getById(id);
 		
 		if (!userOptional.isPresent()) {
 			return new ResponseEntity<Object>(new BaseMessage("No user found with id: " + id), HttpStatus.NOT_FOUND);
 		}
-		return userOptional.get();
+		return ResponseEntity.status(HttpStatus.OK).body(userOptional.get());
 	}
 }

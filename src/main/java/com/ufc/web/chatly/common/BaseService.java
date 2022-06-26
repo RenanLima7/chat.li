@@ -1,7 +1,6 @@
 package com.ufc.web.chatly.common;
 
 import java.util.Optional;
-import java.util.UUID;
 
 public interface BaseService <E>{
 	
@@ -11,5 +10,5 @@ public interface BaseService <E>{
 			
 	public void delete(E entity);
 	
-	public Optional<E> getById(UUID id);
+	public Optional<E> getById(Long id);
 }

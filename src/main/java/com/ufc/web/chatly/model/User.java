@@ -1,9 +1,6 @@
 package com.ufc.web.chatly.model;
 
-import java.util.UUID;
-
 import javax.persistence.*;
-
 import lombok.*;
 
 @Entity
@@ -16,7 +13,7 @@ public class User{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "user_id")
-	private UUID id;
+	private Long id;
 	
 	@Column(nullable = false, length = 150)
 	private String name;

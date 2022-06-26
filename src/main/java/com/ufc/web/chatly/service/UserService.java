@@ -1,7 +1,6 @@
 package com.ufc.web.chatly.service;
 
 import java.util.Optional;
-import java.util.UUID;
 
 import javax.transaction.Transactional;
 
@@ -30,12 +29,14 @@ public class UserService implements BaseService<User>{
 	
 	@Override
 	public void delete(User user) {
-		userRepository.delete(user);;
+		userRepository.delete(user);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
-	public Optional<User> getById(UUID id) {
-		return Optional.ofNullable(userRepository.getOne(id));
+	public Optional<User> getById(Long id) {
+		return userRepository.findById(id);
 	}
+	
+	// existByEmail
+	// lenghtPassword
 }
