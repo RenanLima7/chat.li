@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import com.ufc.web.chatly.model.User;
 import com.ufc.web.chatly.common.BaseController;
 import com.ufc.web.chatly.common.BaseMessage;
+import com.ufc.web.chatly.common.UtilityMethods;
 import com.ufc.web.chatly.dto.UserDTO;
 import com.ufc.web.chatly.service.UserService;
 
@@ -33,11 +34,21 @@ public class UserController implements BaseController<User, UserDTO>{
 	@PostMapping
 	@Override
 	public ResponseEntity<Object> save(@RequestBody @Valid UserDTO userDTO) {
-		// existByEmail
-		// lenghtPassword
-		
 		var user = new User();
 		BeanUtils.copyProperties(userDTO, user);
+		
+		Optional<User> userOptional = userService.getByEmail(userDTO.getEmail());
+		
+		if (userOptional.isPresent()) {
+			return new ResponseEntity<Object>(new BaseMessage("This email alread exists: " + userDTO.getEmail()), HttpStatus.CONFLICT);
+		}
+		
+		if (!UtilityMethods.isNull(userDTO.getAvatar()) && !userDTO.getAvatar().isEmpty()) {
+			byte[] avatar = UtilityMethods.decode(userDTO.getAvatar());			
+			user.setAvatar(avatar);			
+		} else {
+			user.setAvatar(null);
+		}
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(user));		
 	}
@@ -46,18 +57,34 @@ public class UserController implements BaseController<User, UserDTO>{
 	@PutMapping("/{id}")
 	@Override
 	public ResponseEntity<Object> update(@RequestBody @Valid UserDTO userDTO, @PathVariable(value = "id") Long id) {
-		Optional<User> userOptional = userService.getById(id);
+		Optional<User> userOptional = userService.getById(id);	
 		
 		if (!userOptional.isPresent()) {
 			return new ResponseEntity<Object>(new BaseMessage("No user found with id: " + id), HttpStatus.NOT_FOUND);
 		}
+		
 		User user = userOptional.get();
 		user.setName(userDTO.getName());
-		user.setEmail(userDTO.getEmail());
 		user.setPassword(userDTO.getPassword());
+		
+		if(user.getEmail().equals(userDTO.getEmail())) {
+			user.setEmail(userDTO.getEmail());			
+		} else {
+			userOptional = userService.getByEmail(userDTO.getEmail());
+			
+			if (userOptional.isPresent()) {
+				return new ResponseEntity<Object>(new BaseMessage("This email alread exists: " + userDTO.getEmail()), HttpStatus.CONFLICT);
+			}
+			
+			user.setEmail(userDTO.getEmail());	
+		}
 				
-		// Verify
-		user.setAvatar(userDTO.getAvatar());
+		if (!UtilityMethods.isNull(userDTO.getAvatar()) && !userDTO.getAvatar().isEmpty()) {
+			byte[] avatar = UtilityMethods.decode(userDTO.getAvatar());			
+			user.setAvatar(avatar);			
+		} else {
+			user.setAvatar(null);
+		}		
 		
 		return ResponseEntity.status(HttpStatus.OK).body(userService.save(user));
 	}

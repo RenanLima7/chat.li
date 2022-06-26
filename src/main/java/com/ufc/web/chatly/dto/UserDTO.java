@@ -1,9 +1,6 @@
 package com.ufc.web.chatly.dto;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-
-import com.sun.istack.NotNull;
+import javax.validation.constraints.*;
 
 import lombok.*;
 
@@ -13,20 +10,19 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDTO{
-	@NotEmpty
-	@NotBlank
-	@NotNull
+	@NotBlank(message = "The 'name' is required")
+	@NotNull(message = "The 'name' is required")
 	private String name;
 	
-	@NotEmpty
-	@NotBlank
-	@NotNull
+	@NotBlank(message = "The 'email' is required")
+	@NotNull(message = "The 'email' is required")
+	@Email(message = "The 'email' is invalided")
 	private String email;
 	
-	@NotEmpty
-	@NotBlank
-	@NotNull
+	@NotBlank(message = "The 'password' is required")
+	@NotNull(message = "The 'password' is required")
+	@Size(message = "The 'password' must be at least 8 characters long", min = 8) 
 	private String password;
 	
-	private byte[] avatar; 
+	private String avatar; 
 }

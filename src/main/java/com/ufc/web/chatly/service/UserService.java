@@ -37,6 +37,7 @@ public class UserService implements BaseService<User>{
 		return userRepository.findById(id);
 	}
 	
-	// existByEmail
-	// lenghtPassword
+	public Optional<User> getByEmail(String email) {
+		return userRepository.getByEmail(email);
+	}
 }
