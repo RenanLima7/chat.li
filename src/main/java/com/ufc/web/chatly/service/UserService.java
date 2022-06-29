@@ -40,4 +40,8 @@ public class UserService implements BaseService<User>{
 	public Optional<User> getByEmail(String email) {
 		return userRepository.getByEmail(email);
 	}
+
+	public Optional<User> getByEmailAndPassword(){
+		return null;//userRepository.getByEmailAndPassword();
+	}
 }
