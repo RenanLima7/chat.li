@@ -11,4 +11,6 @@ import com.ufc.web.chatly.model.User;
 public interface UserRepository extends JpaRepository<User, Long>{
 	
 	Optional<User> getByEmail(String email);
+
+	//Optional<User> getByEmailAndPassword();
 }

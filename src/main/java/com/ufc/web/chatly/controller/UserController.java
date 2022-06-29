@@ -49,6 +49,11 @@ public class UserController implements BaseController<User, UserDTO>{
 		} else {
 			user.setAvatar(null);
 		}
+			
+		if (!UtilityMethods.isNull(userDTO.getPassword()) && !userDTO.getPassword().isEmpty()) {
+			String hash = UtilityMethods.encryptWithBCrypt(userDTO.getPassword());			
+			user.setPassword(hash);			
+		}
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(user));		
 	}
@@ -65,7 +70,12 @@ public class UserController implements BaseController<User, UserDTO>{
 		
 		User user = userOptional.get();
 		user.setName(userDTO.getName());
-		user.setPassword(userDTO.getPassword());
+		user.setOccupation(userDTO.getOccupation());
+
+		if (!UtilityMethods.isNull(userDTO.getPassword()) && !userDTO.getPassword().isEmpty()) {
+			String hash = UtilityMethods.encryptWithBCrypt(userDTO.getPassword());			
+			user.setPassword(hash);			
+		}
 		
 		if(user.getEmail().equals(userDTO.getEmail())) {
 			user.setEmail(userDTO.getEmail());			
@@ -112,5 +122,23 @@ public class UserController implements BaseController<User, UserDTO>{
 			return new ResponseEntity<Object>(new BaseMessage("No user found with id: " + id), HttpStatus.NOT_FOUND);
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(userOptional.get());
+	}
+
+	@PostMapping("/login")
+	public ResponseEntity<Object> userLogin(@RequestParam String email, @RequestParam String password) { // JWT
+		Optional<User> userOptional = userService.getByEmail(email);
+		
+		if (!userOptional.isPresent()) {
+			return new ResponseEntity<Object>(new BaseMessage("There is no user with the email: " + email), HttpStatus.UNAUTHORIZED);
+		}
+		
+		User user = userOptional.get();
+		boolean valid = UtilityMethods.compareEncryptedPassword(password, user.getPassword());
+		
+		if(valid) {
+			return new ResponseEntity<Object>(new BaseMessage("AUTHORIZED"), HttpStatus.ACCEPTED);
+		} else {
+			return new ResponseEntity<Object>(new BaseMessage("UNAUTHORIZED"), HttpStatus.UNAUTHORIZED);
+		}
 	}
 }

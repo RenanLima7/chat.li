@@ -24,5 +24,9 @@ public class UserDTO{
 	@Size(message = "The 'password' must be at least 8 characters long", min = 8) 
 	private String password;
 	
+	@NotBlank(message = "The 'occupation' is required")
+	@NotNull(message = "The 'occupation' is required")
+	private String occupation;
+	
 	private String avatar; 
 }
