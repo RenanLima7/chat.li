@@ -1,1 +1,1 @@
-export const API_URL = 'https://localhost:8080/api/heroes'
+export const API_URL = 'https://chatly-ufc.herokuapp.com'

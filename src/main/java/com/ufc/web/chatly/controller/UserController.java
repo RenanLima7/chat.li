@@ -70,7 +70,7 @@ public class UserController implements BaseController<User, UserDTO>{
 		
 		User user = userOptional.get();
 		user.setName(userDTO.getName());
-		user.setOccupation(userDTO.getOccupation());
+		user.setGenre(userDTO.getGenre());
 
 		if (!UtilityMethods.isNull(userDTO.getPassword()) && !userDTO.getPassword().isEmpty()) {
 			String hash = UtilityMethods.encryptWithBCrypt(userDTO.getPassword());			

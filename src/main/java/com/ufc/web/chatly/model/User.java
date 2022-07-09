@@ -29,7 +29,7 @@ public class User{
 	private String password;
 	
 	@Column(nullable = false)
-	private String occupation;
+	private String genre;
 	
 	@Lob
 	@Column(nullable = true)
