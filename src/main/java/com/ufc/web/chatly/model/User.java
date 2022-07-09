@@ -1,6 +1,9 @@
 package com.ufc.web.chatly.model;
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.GenericGenerator;
+
 import lombok.*;
 
 @Entity
@@ -11,7 +14,8 @@ import lombok.*;
 @NoArgsConstructor
 public class User{
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(generator = "increment")
+	@GenericGenerator(name = "increment", strategy = "increment")
 	@Column(name = "user_id")
 	private Long id;
 	
