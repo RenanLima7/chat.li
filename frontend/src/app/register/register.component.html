@@ -1,0 +1,38 @@
+<div class="login-page">
+  <div class="form">
+    <div class="login">
+      <div class="login-header">
+        <h3>Cadastro</h3>
+        <p>Crie uma conta hoje mesmo.</p>
+      </div>
+      <span style=" font-size: 16px; color: #e74c3c; margin-bottom: 26px; font-style: italic;">{{errorForm}}</span>
+    </div>
+      <input autofocus [(ngModel)]="email" type="text" placeholder="E-mail" required/>
+      <input type="text" [(ngModel)]="nome" placeholder="Nome" required/>
+      <div class="wrapper">
+        <div class="box-genero">
+          <label for="genero">Genero</label>
+          <select [(ngModel)]="genero" name="genero">
+            <option value="n-a">Selecione uma opcão</option>
+            <option value="masculino">Masculino</option>
+            <option value="feminino">Feminino</option>
+          </select>
+        </div>
+
+        
+      </div>
+      <div class="content-image">
+        <img [src]="foto" width="70" height="70" />
+        <input type="file" id="file" (change)="handleFileInput($event)">
+      </div>
+
+      <div class="wrapper-pass">
+        <div>
+          <input [(ngModel)]="password" type="password"  placeholder="Senha" required/>
+
+          <input type="password" [(ngModel)]="confirmarPassword" placeholder="Cofirmar senha" required/>
+        </div>
+      </div>
+      <button (click)="cadastro()">Criar conta</button>
+  </div>
+</div>
