@@ -1,5 +1,7 @@
 package com.ufc.web.chatly.model;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -8,8 +10,6 @@ import lombok.*;
 
 @Entity
 @Data
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class User{
@@ -34,4 +34,9 @@ public class User{
 	@Lob
 	@Column(nullable = true)
 	private byte[] avatar;
+	
+	@ElementCollection
+	@CollectionTable(name = "user_contacts",
+			joinColumns = @JoinColumn(name = "user_id"))	
+	private List<Contact> contacts;
 }

@@ -44,4 +44,8 @@ public class UserService implements BaseService<User>{
 	public Optional<User> getByEmailAndPassword(){
 		return null;//userRepository.getByEmailAndPassword();
 	}
+
+	public Optional<Object> checkIfTheContactExists(Long userId, Long contactId) {		
+		return userRepository.checkIfTheContactExists(userId, contactId);
+	}
 }
