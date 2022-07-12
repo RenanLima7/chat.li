@@ -1,6 +1,7 @@
 package com.ufc.web.chatly.controller;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -10,13 +11,21 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.ufc.web.chatly.common.BaseController;
 import com.ufc.web.chatly.common.BaseMessage;
 import com.ufc.web.chatly.common.UtilityMethods;
 import com.ufc.web.chatly.dto.UserDTO;
-import com.ufc.web.chatly.model.Contact;
 import com.ufc.web.chatly.model.User;
 import com.ufc.web.chatly.service.UserService;
 
@@ -145,14 +154,14 @@ public class UserController implements BaseController<User, UserDTO>{
 			return new ResponseEntity<Object>(new BaseMessage("UNAUTHORIZED"), HttpStatus.UNAUTHORIZED);
 		}
 	}
-
+/*
 	@Transactional
 	@PutMapping("/{userId}/{contactId}")
 	public ResponseEntity<Object> addContact(@PathVariable(value = "userId") Long userId, @PathVariable(value = "contactId") Long contactId){
 		
 		Optional<User> userOptional = userService.getById(userId);	
 		Optional<User> contactOptional = userService.getById(contactId);
-		
+		String a = "a";
 		if (!userOptional.isPresent()) {
 			return new ResponseEntity<Object>(new BaseMessage("No user found with id: " + userId), HttpStatus.NOT_FOUND);
 		}		
@@ -179,8 +188,18 @@ public class UserController implements BaseController<User, UserDTO>{
 		contact.setAvatar(contactOptional.get().getAvatar());
 		
 		user.setContacts(Arrays.asList(contact));		
-		userService.save(user);
+		userService.updateContacts(user);
 		
 		return ResponseEntity.status(HttpStatus.OK).body("Contact successfully added!");	
+	}*/
+
+	@GetMapping("/source/{source}")
+	public ResponseEntity<Object> getBySource(@PathVariable(value = "source") String source) {	
+		
+		ArrayList<User> users = new ArrayList<User>();
+		//users.addAll((Collection<? extends User>) userService.findByEmail(source));
+		users.addAll((Collection<? extends User>) userService.findBySource(source));
+		
+		return ResponseEntity.status(HttpStatus.OK).body(users);
 	}
 }

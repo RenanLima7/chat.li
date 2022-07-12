@@ -53,6 +53,35 @@ public class BaseExceptionHandler extends ResponseEntityExceptionHandler{
 	private static class Error{
 		private String simpleMessage;
 		private String defultMessage;
-		private String fullMessage;
+		private String fullMessage;	
+		
+		public Error() {
+		}
+
+		public Error(String simpleMessage, String defultMessage, String fullMessage) {
+			super();
+			this.simpleMessage = simpleMessage;
+			this.defultMessage = defultMessage;
+			this.fullMessage = fullMessage;
+		}
+		
+		public String getSimpleMessage() {
+			return simpleMessage;
+		}
+		public void setSimpleMessage(String simpleMessage) {
+			this.simpleMessage = simpleMessage;
+		}
+		public String getDefultMessage() {
+			return defultMessage;
+		}
+		public void setDefultMessage(String defultMessage) {
+			this.defultMessage = defultMessage;
+		}
+		public String getFullMessage() {
+			return fullMessage;
+		}
+		public void setFullMessage(String fullMessage) {
+			this.fullMessage = fullMessage;
+		}
 	}
 }

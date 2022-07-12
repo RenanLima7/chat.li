@@ -10,12 +10,22 @@ import com.ufc.web.chatly.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-
 	Optional<User> getByEmail(String email);
 
 	// Optional<User> getByEmailAndPassword();
 
 	@Query(nativeQuery = true, value = "SELECT UC.* FROM user_contacts AS UC " 
-			+ "WHERE UC.user_id = :userId AND UC.contact_id = :contactId ") // Validar o oposto
+			+ "WHERE UC.user_id = :userId AND UC.contact_id = :contactId ") // Validar o oposto  OR email LIKE '%:source%'") 
 	Optional<Object> checkIfTheContactExists(Long userId, Long contactId);
+
+	//User updateContacts(User user);
+
+	Iterable<User> findByEmail(String email);
+	
+	Iterable<User> findByName(String name);
+
+	//Iterable<User> findByMessage(String message);
+	
+	@Query(nativeQuery = true, value = "SELECT * FROM user WHERE name LIKE ':src'") 
+	Iterable<User> findBySource(String src);
 }
