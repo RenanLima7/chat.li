@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -55,7 +56,7 @@ public class UserController implements BaseController<User, UserDTO>{
 		}
 		
 		if (!UtilityMethods.isNull(userDTO.getAvatar()) && !userDTO.getAvatar().isEmpty()) {
-			byte[] avatar = UtilityMethods.decode(userDTO.getAvatar());			
+			byte[] avatar = UtilityMethods.base64Decode(userDTO.getAvatar()).getBytes();			
 			user.setAvatar(avatar);			
 		} else {
 			user.setAvatar(null);
@@ -101,7 +102,7 @@ public class UserController implements BaseController<User, UserDTO>{
 		}
 				
 		if (!UtilityMethods.isNull(userDTO.getAvatar()) && !userDTO.getAvatar().isEmpty()) {
-			byte[] avatar = UtilityMethods.decode(userDTO.getAvatar());			
+			byte[] avatar = UtilityMethods.base64Decode(userDTO.getAvatar()).getBytes();			
 			user.setAvatar(avatar);			
 		} else {
 			user.setAvatar(null);
@@ -138,7 +139,13 @@ public class UserController implements BaseController<User, UserDTO>{
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<Object> userLogin(@RequestParam String email, @RequestParam String password) { // JWT
+	public ResponseEntity<Object> userLogin(@RequestHeader(value="Authorization") String basicAuth) {
+					
+		String auth = UtilityMethods.base64Decode(basicAuth.substring(6, basicAuth.length()));
+		String[] authSplited = auth.split(":");
+		String email = authSplited[0];
+		String password = authSplited[1];
+		
 		Optional<User> userOptional = userService.getByEmail(email);
 		
 		if (!userOptional.isPresent()) {
