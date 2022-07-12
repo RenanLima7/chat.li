@@ -204,7 +204,7 @@ public class UserController implements BaseController<User, UserDTO>{
 	public ResponseEntity<Object> getBySource(@PathVariable(value = "source") String source) {	
 		
 		ArrayList<User> users = new ArrayList<User>();
-		//users.addAll((Collection<? extends User>) userService.findByEmail(source));
+		users.addAll((Collection<? extends User>) userService.findByEmail(source));
 		users.addAll((Collection<? extends User>) userService.findBySource(source));
 		
 		return ResponseEntity.status(HttpStatus.OK).body(users);
