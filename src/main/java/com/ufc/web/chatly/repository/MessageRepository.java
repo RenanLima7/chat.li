@@ -7,7 +7,7 @@ import com.ufc.web.chatly.model.Message;
 
 @Repository
 public interface MessageRepository extends JpaRepository<Message, Long> {
-	//Iterable<Message> findBySenderId(Long sender);
+	Iterable<Message> findBySenderId(Long sender);
 	
-	//Iterable<Message> findByAddresseeId(Long addressee);
+	Iterable<Message> findByAddresseeId(Long addressee);
 }

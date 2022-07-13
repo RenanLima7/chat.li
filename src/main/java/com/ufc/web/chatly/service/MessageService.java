@@ -10,19 +10,19 @@ import com.ufc.web.chatly.model.Message;
 import com.ufc.web.chatly.repository.MessageRepository;
 
 @Service
-public class MessageService{
-	/*
+public class MessageService implements BaseService<Message>{
+	
 	@Autowired
 	MessageRepository messageRepository;
 
 	@Override
 	public Iterable<Message> getAll() {
-		return null;
+		return messageRepository.findAll();
 	}
 	
 	@Override
 	public Message save(Message message) {
-		return null;///messageRepository.save(message);
+		return messageRepository.save(message);
 	}
 	
 	@Override
@@ -34,13 +34,12 @@ public class MessageService{
 	public Optional<Message> getById(Long id) {
 		return null;
 	}
-	
-	
-	 public Iterable<Message> findBySender(Long id) {
+		
+	public Iterable<Message> findBySenderId(Long id) {
 		return messageRepository.findBySenderId(id);
 	}
 	
-	public Iterable<Message> findByAddressee(Long id) {
+	public Iterable<Message> findByAddresseeId(Long id) {
 		return messageRepository.findByAddresseeId(id);
-	}*/
+	}
 }

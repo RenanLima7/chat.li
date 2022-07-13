@@ -41,18 +41,10 @@ public class UserService implements BaseService<User>{
 		return userRepository.getByEmail(email);
 	}
 
-	public Optional<User> getByEmailAndPassword(){
-		return null;//userRepository.getByEmailAndPassword();
-	}
-
 	public Optional<Object> checkIfTheContactExists(Long userId, Long contactId) {		
 		return userRepository.checkIfTheContactExists(userId, contactId);
 	}
 	
-	//public User updateContacts(User user) {
-		//return userRepository.updateContacts(user);
-	//}
-
 	public Iterable<User> findByEmail(String email) {
 		return userRepository.findByEmail(email);
 	}

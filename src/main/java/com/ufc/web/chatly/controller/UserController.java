@@ -1,6 +1,7 @@
 package com.ufc.web.chatly.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -20,13 +21,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ufc.web.chatly.common.BaseController;
 import com.ufc.web.chatly.common.BaseMessage;
 import com.ufc.web.chatly.common.UtilityMethods;
+import com.ufc.web.chatly.dto.ContactDTO;
 import com.ufc.web.chatly.dto.UserDTO;
+import com.ufc.web.chatly.model.Contact;
 import com.ufc.web.chatly.model.User;
 import com.ufc.web.chatly.service.UserService;
 
@@ -161,44 +163,43 @@ public class UserController implements BaseController<User, UserDTO>{
 			return new ResponseEntity<Object>(new BaseMessage("UNAUTHORIZED"), HttpStatus.UNAUTHORIZED);
 		}
 	}
-/*
+
 	@Transactional
-	@PutMapping("/{userId}/{contactId}")
-	public ResponseEntity<Object> addContact(@PathVariable(value = "userId") Long userId, @PathVariable(value = "contactId") Long contactId){
+	@PutMapping("/addContact")
+	public ResponseEntity<Object> addContact(@RequestBody @Valid ContactDTO contactDTO){
 		
-		Optional<User> userOptional = userService.getById(userId);	
-		Optional<User> contactOptional = userService.getById(contactId);
-		String a = "a";
+		Optional<User> userOptional = userService.getById(contactDTO.getUserId());	
+		Optional<User> contactOptional = userService.getById(contactDTO.getContactId());
+		
 		if (!userOptional.isPresent()) {
-			return new ResponseEntity<Object>(new BaseMessage("No user found with id: " + userId), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Object>(new BaseMessage("No user found with id: " + contactDTO.getUserId()), HttpStatus.NOT_FOUND);
 		}		
 		
 		if (!contactOptional.isPresent()) {
-			return new ResponseEntity<Object>(new BaseMessage("No user found with id: " + contactId), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Object>(new BaseMessage("No user found with id: " + contactDTO.getContactId()), HttpStatus.NOT_FOUND);
 		}
 		
-		if (userId == contactId) {
+		if (contactDTO.getUserId() == contactDTO.getContactId()) {
 			return new ResponseEntity<Object>(new BaseMessage("You can't add yourself"), HttpStatus.CONFLICT);
 		}
 		
-		//if (userService.checkIfTheContactExists(userId, contactId).isPresent()) {
-			//return new ResponseEntity<Object>(new BaseMessage("Contact is already added"), HttpStatus.CONFLICT);
-		//}
+		if (userService.checkIfTheContactExists(contactDTO.getUserId(), contactDTO.getContactId()).isPresent()) {
+			return new ResponseEntity<Object>(new BaseMessage("Contact is already added"), HttpStatus.CONFLICT);
+		}
 		
 		User user = userOptional.get();
 		Contact contact = new Contact();
 		
-		contact.setId(contactOptional.get().getId());
 		contact.setName(contactOptional.get().getName());
 		contact.setEmail(contactOptional.get().getEmail());
 		contact.setGenre(contactOptional.get().getGenre());
 		contact.setAvatar(contactOptional.get().getAvatar());
 		
 		user.setContacts(Arrays.asList(contact));		
-		userService.updateContacts(user);
+		userService.save(user);
 		
 		return ResponseEntity.status(HttpStatus.OK).body("Contact successfully added!");	
-	}*/
+	}
 
 	@GetMapping("/source/{source}")
 	public ResponseEntity<Object> getBySource(@PathVariable(value = "source") String source) {	

@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.ufc.web.chatly.model.User;
@@ -12,13 +13,9 @@ import com.ufc.web.chatly.model.User;
 public interface UserRepository extends JpaRepository<User, Long> {
 	Optional<User> getByEmail(String email);
 
-	// Optional<User> getByEmailAndPassword();
-
-	@Query(nativeQuery = true, value = "SELECT UC.* FROM user_contacts AS UC " 
-			+ "WHERE UC.user_id = :userId AND UC.contact_id = :contactId ") // Validar o oposto  OR email LIKE '%:source%'") 
-	Optional<Object> checkIfTheContactExists(Long userId, Long contactId);
-
-	//User updateContacts(User user);
+	@Query(nativeQuery = true, value = "SELECT * FROM user_contacts "
+			+ "WHERE user_id = :userId AND contact_id = :contact_id") // Validar o oposto  OR email LIKE '%:source%'") 
+	Optional<Object> checkIfTheContactExists(@Param("user_id") Long userId, @Param("contact_id") Long contactId);
 
 	Iterable<User> findByEmail(String email);
 	

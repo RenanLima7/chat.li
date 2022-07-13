@@ -19,7 +19,7 @@ public class Contact{
 	public Contact() {
 	}
 
-	public Contact(Long id, String name, String email, String genre, byte[] avatar) {
+	public Contact(String name, String email, String genre, byte[] avatar) {
 		super();
 		this.name = name;
 		this.email = email;
