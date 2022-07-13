@@ -41,8 +41,8 @@ public class UserService implements BaseService<User>{
 		return userRepository.getByEmail(email);
 	}
 
-	public Optional<Object> checkIfTheContactExists(Long userId, Long contactId) {		
-		return userRepository.checkIfTheContactExists(userId, contactId);
+	public Optional<Object> findByUserIdAndContactId(Long userId, Long contactId) {		
+		return userRepository.findByUserIdAndContactId(userId, contactId);
 	}
 	
 	public Iterable<User> findByEmail(String email) {

@@ -21,7 +21,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor*/
-@Entity
+@Entity(name = "user")
 public class User implements UserDetails{
 	/**
 	 * 
@@ -31,7 +31,7 @@ public class User implements UserDetails{
 	@Id
 	@GeneratedValue(generator = "increment")
 	@GenericGenerator(name = "increment", strategy = "increment")
-	@Column(name = "user_id")
+	@Column(name = "userId")
 	private Long id;
 	
 	@Column(nullable = false, length = 150)
@@ -51,14 +51,14 @@ public class User implements UserDetails{
 	private byte[] avatar;
 	
 	@ElementCollection
-	@CollectionTable(name = "user_contacts",
-			joinColumns = @JoinColumn(name = "user_id"))	
+	@CollectionTable(name = "userContacts",
+			joinColumns = @JoinColumn(name = "userId"))	
 	private List<Contact> contacts;
 
 	public User() {
 	}
 
-	public User(Long id, String name, String email, String password, String genre, byte[] avatar,
+	public User(String name, String email, String password, String genre, byte[] avatar,
 			List<Contact> contacts) {
 		super();
 		this.name = name;

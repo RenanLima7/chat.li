@@ -10,12 +10,12 @@ import org.hibernate.annotations.GenericGenerator;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor*/
-@Entity
+@Entity(name = "message")
 public class Message{
 	@Id
 	@GeneratedValue(generator = "increment")
 	@GenericGenerator(name = "increment", strategy = "increment")
-	@Column(name = "message_id")
+	@Column(name = "messageId")
 	private Long id;
 	
 	@Column(nullable = false)
