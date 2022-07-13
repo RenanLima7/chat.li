@@ -21,17 +21,18 @@ import com.ufc.web.chatly.service.MessageService;
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/message")
-public class MessageController implements BaseController<User, UserDTO>{
+public class MessageController{
+	/*
 	@Autowired 
 	MessageService messageService;	
 	
 	@GetMapping("/{senderId}/{addresseeId}")
 	public ResponseEntity<Iterable<Message>> findAllByContact(@PathVariable(value = "senderId") Long senderId, @PathVariable(value = "addresseeId") Long addresseeId) {
-		ArrayList<Message> messages = new ArrayList<Message>();
+		/*ArrayList<Message> messages = new ArrayList<Message>();
 		messages.addAll((Collection<? extends Message>) messageService.findBySender(senderId));
 		messages.addAll((Collection<? extends Message>) messageService.findByAddressee(addresseeId));
 		
-		return ResponseEntity.status(HttpStatus.OK).body(messages);
+		return null;//ResponseEntity.status(HttpStatus.OK).body(messages);
 	}
 
 
@@ -62,5 +63,5 @@ public class MessageController implements BaseController<User, UserDTO>{
 	public ResponseEntity<Object> delete(Long id) {
 		// TODO Auto-generated method stub
 		return null;
-	}
+	}*/
 }

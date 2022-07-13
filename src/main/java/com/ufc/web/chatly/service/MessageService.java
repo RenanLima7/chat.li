@@ -10,7 +10,8 @@ import com.ufc.web.chatly.model.Message;
 import com.ufc.web.chatly.repository.MessageRepository;
 
 @Service
-public class MessageService implements BaseService<Message>{
+public class MessageService{
+	/*
 	@Autowired
 	MessageRepository messageRepository;
 
@@ -18,15 +19,15 @@ public class MessageService implements BaseService<Message>{
 	public Iterable<Message> getAll() {
 		return null;
 	}
-
+	
 	@Override
 	public Message save(Message message) {
-		return messageRepository.save(message);
+		return null;///messageRepository.save(message);
 	}
-
+	
 	@Override
 	public void delete(Message message) {
-		messageRepository.delete(message);
+		//messageRepository.delete(message);
 	}
 
 	@Override
@@ -34,11 +35,12 @@ public class MessageService implements BaseService<Message>{
 		return null;
 	}
 	
-	public Iterable<Message> findBySender(Long id) {
+	
+	 public Iterable<Message> findBySender(Long id) {
 		return messageRepository.findBySenderId(id);
 	}
 	
 	public Iterable<Message> findByAddressee(Long id) {
 		return messageRepository.findByAddresseeId(id);
-	}
+	}*/
 }

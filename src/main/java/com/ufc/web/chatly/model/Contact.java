@@ -2,11 +2,10 @@ package com.ufc.web.chatly.model;
 
 import javax.persistence.Embeddable;
 
-import lombok.*;
-
+/*
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor*/
 @Embeddable
 public class Contact{	
 	private String name;

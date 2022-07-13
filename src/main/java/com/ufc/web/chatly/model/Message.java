@@ -6,12 +6,11 @@ import javax.persistence.*;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import lombok.*;
-
-@Entity
+/*
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor*/
+@Entity
 public class Message{
 	@Id
 	@GeneratedValue(generator = "increment")

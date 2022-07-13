@@ -16,10 +16,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 @ControllerAdvice
 public class BaseExceptionHandler extends ResponseEntityExceptionHandler{
 	
@@ -47,9 +43,9 @@ public class BaseExceptionHandler extends ResponseEntityExceptionHandler{
 		return errorList;
 	}
 
-	@Data
+	/*@Data
 	@AllArgsConstructor
-	@NoArgsConstructor
+	@NoArgsConstructor*/
 	private static class Error{
 		private String simpleMessage;
 		private String defultMessage;
