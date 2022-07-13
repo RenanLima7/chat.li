@@ -1,0 +1,25 @@
+<div class="header-user">
+    <span class="text-user">{{userName}}</span>
+    <img class="image-user-log" [src]="userAvatar" />
+</div>
+
+<div class="chat-content">
+    <div class="chat-user">
+        <img class="image-user" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.-xquiPry4qADwbC_v0aJAAHaFi%26pid%3DApi&f=1" />
+        <span class="user-send-message">test</span>
+    </div>
+
+    <div class="chat-message">
+        <div class="messages">
+            sas
+        </div>
+        <div class="input-send-image">
+            <input type="text" class="input" placeholder="Digite sua mensagem..." />
+            <button class="send-message" (click)="sendMessage()">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-2 w-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>
