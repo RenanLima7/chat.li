@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
@@ -21,7 +22,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor*/
-@Entity
+@Entity(name = "user")
 public class User implements UserDetails{
 	/**
 	 * 
@@ -29,8 +30,7 @@ public class User implements UserDetails{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(generator = "increment")
-	@GenericGenerator(name = "increment", strategy = "increment")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "user_id")
 	private Long id;
 	
@@ -58,7 +58,7 @@ public class User implements UserDetails{
 	public User() {
 	}
 
-	public User(Long id, String name, String email, String password, String genre, byte[] avatar,
+	public User(String name, String email, String password, String genre, byte[] avatar,
 			List<Contact> contacts) {
 		super();
 		this.name = name;
@@ -132,7 +132,7 @@ public class User implements UserDetails{
 
 	@Override
 	public String getUsername() {
-		return "user not found!";
+		return email;
 	}
 
 	@Override

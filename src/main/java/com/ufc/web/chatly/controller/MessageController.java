@@ -1,5 +1,6 @@
 package com.ufc.web.chatly.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
 
@@ -12,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,15 +37,13 @@ public class MessageController implements BaseController<Message, MessageDTO>{
 	
 	@Autowired
 	UserService userService;
-	/*
-	@GetMapping("/{senderId}/{addresseeId}")
+	
+	@GetMapping("/")
 	public ResponseEntity<Iterable<Message>> findAllByContact(@PathVariable(value = "senderId") Long senderId, @PathVariable(value = "addresseeId") Long addresseeId) {
 		ArrayList<Message> messages = new ArrayList<Message>();
-		messages.addAll((Collection<? extends Message>) messageService.findBySenderId(senderId));
-		messages.addAll((Collection<? extends Message>) messageService.findByAddresseeId(addresseeId));
 		
 		return ResponseEntity.status(HttpStatus.OK).body(messages);
-	}*/
+	}
 
 	@Override
 	public ResponseEntity<Object> update(MessageDTO messageDTO, Long id) {
@@ -82,9 +82,9 @@ public class MessageController implements BaseController<Message, MessageDTO>{
 			return new ResponseEntity<Object>(new BaseMessage("You can't talk to yourself!"), HttpStatus.CONFLICT);
 		}
 		
-		if (!userService.checkIfTheContactExists(messageDTO.getSenderId(), messageDTO.getSenderId()).isPresent()) {
+		/*if (!userService.findByUserIdAndContactId(messageDTO.getSenderId(), messageDTO.getSenderId()).isPresent()) {
 			return new ResponseEntity<Object>(new BaseMessage("Contact not added!"), HttpStatus.CONFLICT);
-		}
+		}*/
 		
 		var message = new Message();
 		BeanUtils.copyProperties(messageDTO, message);

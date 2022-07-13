@@ -183,9 +183,9 @@ public class UserController implements BaseController<User, UserDTO>{
 			return new ResponseEntity<Object>(new BaseMessage("You can't add yourself"), HttpStatus.CONFLICT);
 		}
 		
-		if (userService.checkIfTheContactExists(contactDTO.getUserId(), contactDTO.getContactId()).isPresent()) {
+		/*if (userService.findByUserIdAndContactId(contactDTO.getUserId(), contactDTO.getContactId()).isPresent()) {
 			return new ResponseEntity<Object>(new BaseMessage("Contact is already added"), HttpStatus.CONFLICT);
-		}
+		}*/
 		
 		User user = userOptional.get();
 		Contact contact = new Contact();
