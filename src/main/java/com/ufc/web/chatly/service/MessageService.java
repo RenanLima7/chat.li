@@ -42,4 +42,8 @@ public class MessageService implements BaseService<Message>{
 	public Iterable<Message> findByAddresseeId(Long id) {
 		return messageRepository.findByAddresseeId(id);
 	}
+	
+	public Iterable<Message> findBySenderIdAndAddresseeId(Long senderId, Long addresseeId) {
+		return messageRepository.findBySenderIdAndAddresseeId(senderId, addresseeId);
+	}
 }
