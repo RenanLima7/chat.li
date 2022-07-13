@@ -132,7 +132,7 @@ public class User implements UserDetails{
 
 	@Override
 	public String getUsername() {
-		return "user not found!";
+		return email;
 	}
 
 	@Override
