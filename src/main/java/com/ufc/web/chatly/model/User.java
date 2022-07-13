@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
@@ -29,9 +30,8 @@ public class User implements UserDetails{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(generator = "increment")
-	@GenericGenerator(name = "increment", strategy = "increment")
-	@Column(name = "userId")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "user_id")
 	private Long id;
 	
 	@Column(nullable = false, length = 150)
@@ -51,8 +51,8 @@ public class User implements UserDetails{
 	private byte[] avatar;
 	
 	@ElementCollection
-	@CollectionTable(name = "userContacts",
-			joinColumns = @JoinColumn(name = "userId"))	
+	@CollectionTable(name = "user_contacts",
+			joinColumns = @JoinColumn(name = "user_id"))	
 	private List<Contact> contacts;
 
 	public User() {

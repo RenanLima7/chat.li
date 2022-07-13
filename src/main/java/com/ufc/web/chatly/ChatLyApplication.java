@@ -16,15 +16,15 @@ public class ChatLyApplication {
 		System.out.println("\tServer ON");
 		System.out.println("=======================");
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	@Bean
-	   public WebMvcConfigurer corsConfigurer() {
-	      return new WebMvcConfigurerAdapter() {
-	         @Override
-	         public void addCorsMappings(CorsRegistry registry) {
-	            registry.addMapping("**").allowedOrigins("**");
-	         }
-	      };
-	   }
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurerAdapter() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("**").allowedOrigins("**");
+			}
+		};
+	}
 }

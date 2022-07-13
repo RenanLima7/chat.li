@@ -38,7 +38,7 @@ public class MessageController implements BaseController<Message, MessageDTO>{
 	@Autowired
 	UserService userService;
 	
-	@GetMapping("/}")
+	@GetMapping("/")
 	public ResponseEntity<Iterable<Message>> findAllByContact(@PathVariable(value = "senderId") Long senderId, @PathVariable(value = "addresseeId") Long addresseeId) {
 		ArrayList<Message> messages = new ArrayList<Message>();
 		
@@ -82,9 +82,9 @@ public class MessageController implements BaseController<Message, MessageDTO>{
 			return new ResponseEntity<Object>(new BaseMessage("You can't talk to yourself!"), HttpStatus.CONFLICT);
 		}
 		
-		if (!userService.findByUserIdAndContactId(messageDTO.getSenderId(), messageDTO.getSenderId()).isPresent()) {
+		/*if (!userService.findByUserIdAndContactId(messageDTO.getSenderId(), messageDTO.getSenderId()).isPresent()) {
 			return new ResponseEntity<Object>(new BaseMessage("Contact not added!"), HttpStatus.CONFLICT);
-		}
+		}*/
 		
 		var message = new Message();
 		BeanUtils.copyProperties(messageDTO, message);

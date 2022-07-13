@@ -43,7 +43,7 @@ public class MessageService implements BaseService<Message>{
 		return messageRepository.findByAddresseeId(id);
 	}
 	
-	public Iterable<Message> findBySenderIdAndAddresseeId(Long senderId, Long addresseeId) {
+	/*public Iterable<Message> findBySenderIdAndAddresseeId(Long senderId, Long addresseeId) {
 		return messageRepository.findBySenderIdAndAddresseeId(senderId, addresseeId);
-	}
+	}*/
 }

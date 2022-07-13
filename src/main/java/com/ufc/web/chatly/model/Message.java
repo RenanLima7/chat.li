@@ -13,9 +13,8 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity(name = "message")
 public class Message{
 	@Id
-	@GeneratedValue(generator = "increment")
-	@GenericGenerator(name = "increment", strategy = "increment")
-	@Column(name = "messageId")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "message_d")
 	private Long id;
 	
 	@Column(nullable = false)
