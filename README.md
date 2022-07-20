@@ -1,12 +1,17 @@
 
 # Chat.li
 
-Uma breve descrição sobre o que esse projeto faz e para quem ele é
+Chat.li é um aplicação de chat em tempo real que tem o objetivo de conectar pessoas da área de TI.
 
 
 ## Demonstração
 
 Insira um gif ou um link de alguma demonstração
+
+
+## Protótipo
+
+// Figma
 
 
 ## Screenshots
