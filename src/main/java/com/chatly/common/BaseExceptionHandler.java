@@ -1,4 +1,4 @@
-package com.ufc.web.chatly.common;
+package com.chatly.common;
 
 import java.util.ArrayList;
 import java.util.List;

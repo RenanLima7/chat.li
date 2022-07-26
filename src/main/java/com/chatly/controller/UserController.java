@@ -1,4 +1,4 @@
-package com.ufc.web.chatly.controller;
+package com.chatly.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,14 +23,14 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ufc.web.chatly.common.BaseController;
-import com.ufc.web.chatly.common.BaseMessage;
-import com.ufc.web.chatly.common.UtilityMethods;
-import com.ufc.web.chatly.dto.ContactDTO;
-import com.ufc.web.chatly.dto.UserDTO;
-import com.ufc.web.chatly.model.Contact;
-import com.ufc.web.chatly.model.User;
-import com.ufc.web.chatly.service.UserService;
+import com.chatly.common.BaseController;
+import com.chatly.common.BaseMessage;
+import com.chatly.common.UtilityMethods;
+import com.chatly.dto.ContactDTO;
+import com.chatly.dto.UserDTO;
+import com.chatly.model.Contact;
+import com.chatly.model.User;
+import com.chatly.service.UserService;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)

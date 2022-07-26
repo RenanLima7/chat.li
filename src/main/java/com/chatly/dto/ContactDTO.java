@@ -1,4 +1,4 @@
-package com.ufc.web.chatly.dto;
+package com.chatly.dto;
 
 import javax.validation.constraints.NotNull;
 

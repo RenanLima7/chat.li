@@ -1,4 +1,4 @@
-package com.ufc.web.chatly.security;
+package com.chatly.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,8 +15,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.ufc.web.chatly.model.User;
-import com.ufc.web.chatly.repository.UserRepository;
+import com.chatly.model.User;
+import com.chatly.repository.UserRepository;
 
 @Configuration
 @EnableWebSecurity

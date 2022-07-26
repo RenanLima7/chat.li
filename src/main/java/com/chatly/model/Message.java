@@ -1,4 +1,4 @@
-package com.ufc.web.chatly.model;
+package com.chatly.model;
 
 import java.util.Date;
 

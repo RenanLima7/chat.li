@@ -1,13 +1,13 @@
-package com.ufc.web.chatly.service;
+package com.chatly.service;
 
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ufc.web.chatly.common.BaseService;
-import com.ufc.web.chatly.model.Message;
-import com.ufc.web.chatly.repository.MessageRepository;
+import com.chatly.common.BaseService;
+import com.chatly.model.Message;
+import com.chatly.repository.MessageRepository;
 
 @Service
 public class MessageService implements BaseService<Message>{
