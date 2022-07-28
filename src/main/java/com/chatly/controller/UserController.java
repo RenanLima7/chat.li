@@ -84,7 +84,7 @@ public class UserController implements BaseController<User, UserDTO>{
 		
 		User user = userOptional.get();
 		user.setName(userDTO.getName());
-		user.setGenre(userDTO.getGenre());
+		user.setOccupation(userDTO.getOccupation());
 
 		if (!UtilityMethods.isNull(userDTO.getPassword()) && !userDTO.getPassword().isEmpty()) {
 			String hash = UtilityMethods.encryptWithBCrypt(userDTO.getPassword());			
@@ -192,7 +192,7 @@ public class UserController implements BaseController<User, UserDTO>{
 		
 		contact.setName(contactOptional.get().getName());
 		contact.setEmail(contactOptional.get().getEmail());
-		contact.setGenre(contactOptional.get().getGenre());
+		contact.setOccupation(contactOptional.get().getOccupation());
 		contact.setAvatar(contactOptional.get().getAvatar());
 		
 		user.setContacts(Arrays.asList(contact));		

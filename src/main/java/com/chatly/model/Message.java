@@ -2,19 +2,28 @@ package com.chatly.model;
 
 import java.util.Date;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.GenericGenerator;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-/*
 @Data
 @AllArgsConstructor
-@NoArgsConstructor*/
+@NoArgsConstructor
 @Entity(name = "message")
+@Table(name = "tb_message")
 public class Message{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "message_d")
+	@Column(name = "message_id")
 	private Long id;
 	
 	@Column(nullable = false)
@@ -29,55 +38,4 @@ public class Message{
 	@Column(nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
-
-	public Message() {
-	}
-
-	public Message(Long id, Long senderId, Long addresseeId, String content, Date createdDate) {
-		super();
-		this.senderId = senderId;
-		this.addresseeId = addresseeId;
-		this.content = content;
-		this.createdDate = createdDate;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Long getSenderId() {
-		return senderId;
-	}
-
-	public void setSenderId(Long senderId) {
-		this.senderId = senderId;
-	}
-
-	public Long getAddresseeId() {
-		return addresseeId;
-	}
-
-	public void setAddresseeId(Long addresseeId) {
-		this.addresseeId = addresseeId;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public Date getCreatedDate() {
-		return createdDate;
-	}
-
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
 }

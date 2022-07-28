@@ -3,10 +3,13 @@ package com.chatly.dto;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-/*
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Data
 @AllArgsConstructor
-@NoArgsConstructor*/
+@NoArgsConstructor
 public class MessageDTO {
 	@NotNull(message = "The 'senderId' is required")
 	private Long senderId;
@@ -17,40 +20,4 @@ public class MessageDTO {
 	@NotBlank(message = "The 'content' is required")
 	@NotNull(message = "The 'content' is required")
 	private String content;
-
-	public MessageDTO() {
-	}
-
-	public MessageDTO(@NotNull(message = "The 'senderId' is required") Long senderId,
-			@NotNull(message = "The 'addresseeId' is required") Long addresseeId,
-			@NotBlank(message = "The 'content' is required") @NotNull(message = "The 'content' is required") String content) {
-		super();
-		this.senderId = senderId;
-		this.addresseeId = addresseeId;
-		this.content = content;
-	}
-
-	public Long getSenderId() {
-		return senderId;
-	}
-
-	public void setSenderId(Long senderId) {
-		this.senderId = senderId;
-	}
-
-	public Long getAddresseeId() {
-		return addresseeId;
-	}
-
-	public void setAddresseeId(Long addresseeId) {
-		this.addresseeId = addresseeId;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
 }

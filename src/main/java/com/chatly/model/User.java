@@ -13,20 +13,22 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.Table;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-/*
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Data
 @AllArgsConstructor
-@NoArgsConstructor*/
+@NoArgsConstructor
 @Entity(name = "user")
+@Table(name = "tb_user")
 public class User implements UserDetails{
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -44,86 +46,16 @@ public class User implements UserDetails{
 	private String password;
 	
 	@Column(nullable = false)
-	private String genre;
+	private String occupation;
 	
 	@Lob
 	@Column(nullable = true)
 	private byte[] avatar;
 	
 	@ElementCollection
-	@CollectionTable(name = "user_contacts",
+	@CollectionTable(name = "tb_user_contacts",
 			joinColumns = @JoinColumn(name = "user_id"))	
 	private List<Contact> contacts;
-
-	public User() {
-	}
-
-	public User(String name, String email, String password, String genre, byte[] avatar,
-			List<Contact> contacts) {
-		super();
-		this.name = name;
-		this.email = email;
-		this.password = password;
-		this.genre = genre;
-		this.avatar = avatar;
-		this.contacts = contacts;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getGenre() {
-		return genre;
-	}
-
-	public void setGenre(String genre) {
-		this.genre = genre;
-	}
-
-	public byte[] getAvatar() {
-		return avatar;
-	}
-
-	public void setAvatar(byte[] avatar) {
-		this.avatar = avatar;
-	}
-
-	public List<Contact> getContacts() {
-		return contacts;
-	}
-
-	public void setContacts(List<Contact> contacts) {
-		this.contacts = contacts;
-	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
