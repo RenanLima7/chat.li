@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chatly.common.BaseController;
-import com.chatly.common.BaseMessage;
 import com.chatly.common.UtilityMethods;
 import com.chatly.dto.ContactDTO;
 import com.chatly.dto.UserDTO;
@@ -32,6 +31,10 @@ import com.chatly.model.Contact;
 import com.chatly.model.User;
 import com.chatly.service.UserService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api(value = "API REST Chat.ly - USER")
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/user")
@@ -39,6 +42,7 @@ public class UserController implements BaseController<User, UserDTO>{
 	@Autowired 
 	UserService userService;	
 	
+	@ApiOperation(value = "Retorna uma lista de usuários")
 	@GetMapping
 	public ResponseEntity<Iterable<User>> getAll() {
 		return ResponseEntity.status(HttpStatus.OK).body(userService.getAll());
@@ -46,6 +50,7 @@ public class UserController implements BaseController<User, UserDTO>{
 
 	@Transactional
 	@PostMapping
+	@ApiOperation(value = "Salva um usuário")
 	@Override
 	public ResponseEntity<Object> save(@RequestBody @Valid UserDTO userDTO) {
 		var user = new User();
@@ -54,7 +59,7 @@ public class UserController implements BaseController<User, UserDTO>{
 		Optional<User> userOptional = userService.getByEmail(userDTO.getEmail());
 		
 		if (userOptional.isPresent()) {
-			return new ResponseEntity<Object>(new BaseMessage("This email alread exists: " + userDTO.getEmail()), HttpStatus.CONFLICT);
+			return new ResponseEntity<Object>(new String("This email alread exists: " + userDTO.getEmail()), HttpStatus.CONFLICT);
 		}
 		
 		if (!UtilityMethods.isNull(userDTO.getAvatar()) && !userDTO.getAvatar().isEmpty()) {
@@ -74,12 +79,13 @@ public class UserController implements BaseController<User, UserDTO>{
 
 	@Transactional
 	@PutMapping("/{id}")
+	@ApiOperation(value = "Atualiza um usuário")
 	@Override
 	public ResponseEntity<Object> update(@RequestBody @Valid UserDTO userDTO, @PathVariable(value = "id") Long id) {
 		Optional<User> userOptional = userService.getById(id);	
 		
 		if (!userOptional.isPresent()) {
-			return new ResponseEntity<Object>(new BaseMessage("No user found with id: " + id), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Object>(new String("No user found with id: " + id), HttpStatus.NOT_FOUND);
 		}
 		
 		User user = userOptional.get();
@@ -97,7 +103,7 @@ public class UserController implements BaseController<User, UserDTO>{
 			userOptional = userService.getByEmail(userDTO.getEmail());
 			
 			if (userOptional.isPresent()) {
-				return new ResponseEntity<Object>(new BaseMessage("This email alread exists: " + userDTO.getEmail()), HttpStatus.CONFLICT);
+				return new ResponseEntity<Object>(new String("This email alread exists: " + userDTO.getEmail()), HttpStatus.CONFLICT);
 			}
 			
 			user.setEmail(userDTO.getEmail());	
@@ -117,29 +123,32 @@ public class UserController implements BaseController<User, UserDTO>{
 
 	@Transactional
 	@DeleteMapping("/{id}")
+	@ApiOperation(value = "Deleta um usuário")
 	@Override
 	public ResponseEntity<Object> delete(@PathVariable(value = "id") Long id) {
 		Optional<User> userOptional = userService.getById(id);
 		
 		if (!userOptional.isPresent()) {
-			return new ResponseEntity<Object>(new BaseMessage("No user found with id: " + id), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Object>(new String("No user found with id: " + id), HttpStatus.NOT_FOUND);
 		}
 		
 		userService.delete(userOptional.get());
-		return new ResponseEntity<Object>(new BaseMessage("User successfully deleted!"), HttpStatus.OK);	
+		return new ResponseEntity<Object>(new String("User successfully deleted!"), HttpStatus.OK);	
 	}
 
 	@GetMapping("/{id}")
+	@ApiOperation(value = "Retorna um usuário pelo seu ID")
 	@Override
 	public ResponseEntity<Object> getById(@PathVariable(value = "id") Long id) {
 		Optional<User> userOptional = userService.getById(id);
 		
 		if (!userOptional.isPresent()) {
-			return new ResponseEntity<Object>(new BaseMessage("No user found with id: " + id), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Object>(new String("No user found with id: " + id), HttpStatus.NOT_FOUND);
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(userOptional.get());
 	}
 
+	@ApiOperation(value = "Verifica o login do usuário")
 	@PostMapping("/login")
 	public ResponseEntity<Object> userLogin(@RequestHeader(value="Authorization") String basicAuth) {
 					
@@ -151,20 +160,21 @@ public class UserController implements BaseController<User, UserDTO>{
 		Optional<User> userOptional = userService.getByEmail(email);
 		
 		if (!userOptional.isPresent()) {
-			return new ResponseEntity<Object>(new BaseMessage("There is no user with the email: " + email), HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<Object>(new String("There is no user with the email: " + email), HttpStatus.UNAUTHORIZED);
 		}
 		
 		User user = userOptional.get();
 		boolean valid = UtilityMethods.compareEncryptedPassword(password, user.getPassword());
 		
 		if(valid) {
-			return new ResponseEntity<Object>(new BaseMessage("AUTHORIZED"), HttpStatus.ACCEPTED);
+			return new ResponseEntity<Object>(new String("AUTHORIZED"), HttpStatus.ACCEPTED);
 		} else {
-			return new ResponseEntity<Object>(new BaseMessage("UNAUTHORIZED"), HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<Object>(new String("UNAUTHORIZED"), HttpStatus.UNAUTHORIZED);
 		}
 	}
 
 	@Transactional
+	@ApiOperation(value = "Adiciona um novo contato")
 	@PutMapping("/addContact")
 	public ResponseEntity<Object> addContact(@RequestBody @Valid ContactDTO contactDTO){
 		
@@ -172,15 +182,15 @@ public class UserController implements BaseController<User, UserDTO>{
 		Optional<User> contactOptional = userService.getById(contactDTO.getContactId());
 		
 		if (!userOptional.isPresent()) {
-			return new ResponseEntity<Object>(new BaseMessage("No user found with id: " + contactDTO.getUserId()), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Object>(new String("No user found with id: " + contactDTO.getUserId()), HttpStatus.NOT_FOUND);
 		}		
 		
 		if (!contactOptional.isPresent()) {
-			return new ResponseEntity<Object>(new BaseMessage("No user found with id: " + contactDTO.getContactId()), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Object>(new String("No user found with id: " + contactDTO.getContactId()), HttpStatus.NOT_FOUND);
 		}
 		
 		if (contactDTO.getUserId() == contactDTO.getContactId()) {
-			return new ResponseEntity<Object>(new BaseMessage("You can't add yourself"), HttpStatus.CONFLICT);
+			return new ResponseEntity<Object>(new String("You can't add yourself"), HttpStatus.CONFLICT);
 		}
 		
 		/*if (userService.findByUserIdAndContactId(contactDTO.getUserId(), contactDTO.getContactId()).isPresent()) {
@@ -201,6 +211,7 @@ public class UserController implements BaseController<User, UserDTO>{
 		return ResponseEntity.status(HttpStatus.OK).body("Contact successfully added!");	
 	}
 
+	@ApiOperation(value = "Realiza uma busca por meio do email, conteúdo de alguma mensagem ou nome de usuário")
 	@GetMapping("/source/{source}")
 	public ResponseEntity<Object> getBySource(@PathVariable(value = "source") String source) {	
 		

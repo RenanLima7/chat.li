@@ -20,14 +20,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chatly.common.BaseController;
-import com.chatly.common.BaseMessage;
 import com.chatly.dto.MessageDTO;
 import com.chatly.model.Message;
 import com.chatly.model.User;
 import com.chatly.service.MessageService;
 import com.chatly.service.UserService;
 
+import io.swagger.annotations.Api;
+
 @RestController
+@Api(value = "API REST Chat.ly - MESSAGE")
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/message")
 public class MessageController implements BaseController<Message, MessageDTO>{
@@ -69,17 +71,17 @@ public class MessageController implements BaseController<Message, MessageDTO>{
 		Optional<User> sender = userService.getById(messageDTO.getSenderId());
 		
 		if (!sender.isPresent()) {
-			return new ResponseEntity<Object>(new BaseMessage("No user found with id: " + messageDTO.getSenderId()), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Object>(new String("No user found with id: " + messageDTO.getSenderId()), HttpStatus.NOT_FOUND);
 		}
 		
 		Optional<User> addressee = userService.getById(messageDTO.getAddresseeId());
 		
 		if (!addressee.isPresent()) {
-			return new ResponseEntity<Object>(new BaseMessage("No user found with id: " + messageDTO.getAddresseeId()), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Object>(new String("No user found with id: " + messageDTO.getAddresseeId()), HttpStatus.NOT_FOUND);
 		}
 		
 		if (messageDTO.getSenderId() == messageDTO.getAddresseeId()) {
-			return new ResponseEntity<Object>(new BaseMessage("You can't talk to yourself!"), HttpStatus.CONFLICT);
+			return new ResponseEntity<Object>(new String("You can't talk to yourself!"), HttpStatus.CONFLICT);
 		}
 		
 		/*if (!userService.findByUserIdAndContactId(messageDTO.getSenderId(), messageDTO.getSenderId()).isPresent()) {

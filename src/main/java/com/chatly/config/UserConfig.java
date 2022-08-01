@@ -1,4 +1,4 @@
-package com.chatly.security;
+package com.chatly.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -18,9 +18,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import com.chatly.model.User;
 import com.chatly.repository.UserRepository;
 
+@SuppressWarnings("deprecation")
 @Configuration
 @EnableWebSecurity
-public class UserSecurity extends WebSecurityConfigurerAdapter {
+public class UserConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserRepository userRepository;
@@ -32,6 +33,7 @@ public class UserSecurity extends WebSecurityConfigurerAdapter {
         .cors().and()
         .authorizeRequests()
         .antMatchers(HttpMethod.POST, "/user/**").permitAll()
+        .antMatchers(HttpMethod.GET, "/swagger**").permitAll()
         .anyRequest().authenticated()
         .and().httpBasic()
         .and().authenticationProvider(authProvider());
@@ -56,6 +58,5 @@ public class UserSecurity extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 }
 

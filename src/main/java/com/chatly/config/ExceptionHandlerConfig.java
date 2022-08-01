@@ -1,4 +1,4 @@
-package com.chatly.common;
+package com.chatly.config;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +16,12 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @ControllerAdvice
-public class BaseExceptionHandler extends ResponseEntityExceptionHandler{
+public class ExceptionHandlerConfig extends ResponseEntityExceptionHandler{
 	
 	@Autowired
 	private MessageSource messageSource;
@@ -43,41 +47,12 @@ public class BaseExceptionHandler extends ResponseEntityExceptionHandler{
 		return errorList;
 	}
 
-	/*@Data
+	@Data
 	@AllArgsConstructor
-	@NoArgsConstructor*/
+	@NoArgsConstructor
 	private static class Error{
 		private String simpleMessage;
 		private String defultMessage;
-		private String fullMessage;	
-		
-		public Error() {
-		}
-
-		public Error(String simpleMessage, String defultMessage, String fullMessage) {
-			super();
-			this.simpleMessage = simpleMessage;
-			this.defultMessage = defultMessage;
-			this.fullMessage = fullMessage;
-		}
-		
-		public String getSimpleMessage() {
-			return simpleMessage;
-		}
-		public void setSimpleMessage(String simpleMessage) {
-			this.simpleMessage = simpleMessage;
-		}
-		public String getDefultMessage() {
-			return defultMessage;
-		}
-		public void setDefultMessage(String defultMessage) {
-			this.defultMessage = defultMessage;
-		}
-		public String getFullMessage() {
-			return fullMessage;
-		}
-		public void setFullMessage(String fullMessage) {
-			this.fullMessage = fullMessage;
-		}
+		private String fullMessage;			
 	}
 }
