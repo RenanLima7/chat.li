@@ -53,7 +53,7 @@ public class UserController implements BaseController<User, UserDTO>{
 	@ApiOperation(value = "Salva um usuário")
 	@Override
 	public ResponseEntity<Object> save(@RequestBody @Valid UserDTO userDTO) {
-		var user = new User();
+		User user = new User();
 		BeanUtils.copyProperties(userDTO, user);
 		
 		Optional<User> userOptional = userService.getByEmail(userDTO.getEmail());

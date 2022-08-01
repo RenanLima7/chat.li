@@ -88,7 +88,7 @@ public class MessageController implements BaseController<Message, MessageDTO>{
 			return new ResponseEntity<Object>(new BaseMessage("Contact not added!"), HttpStatus.CONFLICT);
 		}*/
 		
-		var message = new Message();
+		Message message = new Message();
 		BeanUtils.copyProperties(messageDTO, message);
 		
 		message.setCreatedDate(new Date());
