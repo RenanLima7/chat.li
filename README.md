@@ -3,7 +3,7 @@
 
 Chat.ly é um aplicação de chat em tempo real que tem o objetivo de conectar pessoas da área de TI.
 
-Acesse: http://api-chatly.herokuapp.com/swagger-ui.html
+Acesse: http://api-chatly.herokuapp.com/
 
 ## Protótipo
 
