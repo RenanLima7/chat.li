@@ -47,10 +47,9 @@ public class User implements UserDetails{
 	
 	@Column(nullable = false)
 	private String occupation;
-	
-	@Lob
+		
 	@Column(nullable = true)
-	private byte[] avatar;
+	private String avatar;
 	
 	@ElementCollection
 	@CollectionTable(name = "tb_user_contacts",

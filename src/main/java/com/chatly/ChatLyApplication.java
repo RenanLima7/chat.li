@@ -17,7 +17,6 @@ public class ChatLyApplication {
 		System.out.println("=======================");
 	}
 
-	@SuppressWarnings("deprecation")
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurerAdapter() {
@@ -26,5 +25,5 @@ public class ChatLyApplication {
 				registry.addMapping("**").allowedOrigins("**");
 			}
 		};
-	}
+	}	
 }
