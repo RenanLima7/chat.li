@@ -17,5 +17,5 @@ public class Contact{
 	
 	private String occupation;
 	
-	private byte[] avatar;
+	private String avatar;
 }

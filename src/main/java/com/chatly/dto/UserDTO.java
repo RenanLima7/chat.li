@@ -5,6 +5,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,5 +33,5 @@ public class UserDTO{
 	@NotNull(message = "The 'occupation' is required")
 	private String occupation;
 	
-	private String avatar;
+	private MultipartFile avatar;
 }
