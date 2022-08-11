@@ -1,10 +1,10 @@
-package com.ufc.web.chatly;
+package com.chatly;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ChatLyApplicationTests {
+class ChatlyApplicationTests {
 
 	@Test
 	void contextLoads() {
